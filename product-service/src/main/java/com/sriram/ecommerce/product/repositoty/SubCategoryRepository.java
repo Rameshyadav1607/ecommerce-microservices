@@ -11,4 +11,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Intege
 
     @Query("select subc.categoryName from SubCategory subc")
     List<String> getAllSubcatogryName();
+
+      SubCategory findBySubCategoryId(Integer subCategoryId);
 }

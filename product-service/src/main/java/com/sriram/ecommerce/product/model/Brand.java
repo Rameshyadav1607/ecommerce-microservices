@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -28,6 +30,7 @@ public class Brand implements java.io.Serializable {
 
 
      private int brandId;
+     private SubCategory subCategory;
      private String brandName;
      private String description;
      private LocalDateTime createdDate;
@@ -38,13 +41,14 @@ public class Brand implements java.io.Serializable {
     }
 
 	
-    public Brand(int brandId, String brandName, LocalDateTime createdDate) {
+    public Brand(int brandId,String brandName, LocalDateTime createdDate) {
         this.brandId = brandId;
         this.brandName = brandName;
         this.createdDate = createdDate;
     }
-    public Brand(int brandId, String brandName, String description, LocalDateTime createdDate, LocalDateTime updatedDate, Set<Product> products) {
+    public Brand(int brandId,SubCategory subCategory, String brandName, String description, LocalDateTime createdDate, LocalDateTime updatedDate, Set<Product> products) {
        this.brandId = brandId;
+       this.subCategory=subCategory;
        this.brandName = brandName;
        this.description = description;
        this.createdDate = createdDate;
@@ -112,8 +116,15 @@ public class Brand implements java.io.Serializable {
         this.products = products;
     }
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="sub_category_id")
+    public SubCategory getSubCategory() {
+        return this.subCategory;
+    }
 
-
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
+    }
 
 }
 

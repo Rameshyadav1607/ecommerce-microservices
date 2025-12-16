@@ -20,9 +20,10 @@ public class BrandResource {
     @Autowired
     private BrandService brandService;
 
-    @PostMapping("/save")
-    public void saveOrUpdateBrand(@Validated @RequestBody BrandDomain brandDomain){
-         brandService.saveOrUpdateBrand(brandDomain);
+    @PostMapping("/{brandName}/{description}/{subCategoryId}")
+    public void saveOrUpdateBrand(@Validated @PathVariable String brandName,
+    @PathVariable String description,@PathVariable Integer subCategoryId){
+         brandService.saveOrUpdateBrand(brandName,description,subCategoryId);
     }
 
     @DeleteMapping("/delete/{brandID}")
