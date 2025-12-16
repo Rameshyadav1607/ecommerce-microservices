@@ -2,10 +2,8 @@ package com.sriram.ecommerce.product.service;
 
 import com.sriram.ecommerce.product.domain.ProductDomain;
 import com.sriram.ecommerce.product.model.Brand;
-import com.sriram.ecommerce.product.model.Category;
 import com.sriram.ecommerce.product.model.Product;
 import com.sriram.ecommerce.product.repositoty.BrandRepository;
-import com.sriram.ecommerce.product.repositoty.CategoryRepository;
 import com.sriram.ecommerce.product.repositoty.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +18,24 @@ import java.util.stream.Collectors;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+
     @Autowired
     private BrandRepository brandRepository;
 
-    public String saveProductOrUpdate(ProductDomain productDomain) {
-        Product product = productRepository.findByProductName(productDomain.getProductName());
+    public String saveProduct(ProductDomain productDomain) {
+        Product existingProduct = productRepository.findByProductName(productDomain.getProductName());
 
-        Category category = categoryRepository.findByCategoryName(productDomain.getCategoryName());
-        Brand brand=brandRepository.findByBrandName(productDomain.getBrandName());
+        Brand brand=brandRepository.findByBrandId(productDomain.getBrandId());
 
-        if(product ==null){
-            product=new Product();
-            product.setcreatedDate(LocalDateTime.now());
-        }else{
-            product.setUpdateDate(LocalDateTime.now());
+        if(existingProduct !=null){
+          return "Product Already exits";
         }
-        product.setCategory(category);
+        Product product=new Product();
+        product.setcreatedDate(LocalDateTime.now());
         product.setBrand(brand);
         product.setProductName(productDomain.getProductName());
         product.setDescription(productDomain.getDescription());
-        product.setPrice(productDomain.getPrice());
+        product.setPrice(productDomain.getUnitPrice());
         product.setQuantiy(productDomain.getQuantity());
 
         productRepository.save(product);

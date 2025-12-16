@@ -29,7 +29,6 @@ import java.util.Set;
 public class Product implements java.io.Serializable {
 
      private int productId;
-     private Category category;
      private Brand brand;
      private String productName;
      private String description;
@@ -51,9 +50,8 @@ public class Product implements java.io.Serializable {
         this.price = price;
         this.createdDate = createdDate;
     }
-    public Product(int productId, Category category, Brand brand, String productName, String description, Double price, Integer quantiy, LocalDateTime createdDate, LocalDateTime updateDate, Set<ProductImage> productImages, Set<Inventory> inventories, Set<Discount> discounts) {
+    public Product(int productId, Brand brand, String productName, String description, Double price, Integer quantiy, LocalDateTime createdDate, LocalDateTime updateDate, Set<ProductImage> productImages, Set<Inventory> inventories, Set<Discount> discounts) {
        this.productId = productId;
-       this.category = category;
        this.brand = brand;
        this.productName = productName;
        this.description = description;
@@ -77,15 +75,7 @@ public class Product implements java.io.Serializable {
         this.productId = productId;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="category_id")
-    public Category getCategory() {
-        return this.category;
-    }
-    
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="brand_id")

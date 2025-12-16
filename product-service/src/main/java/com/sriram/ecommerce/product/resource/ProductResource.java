@@ -18,8 +18,8 @@ public class ProductResource  {
     @Autowired
     private ProductService productService;
     @PostMapping("/save")
-    public String saveProductOrUpdate(@RequestBody ProductDomain productDomain){
-       return productService.saveProductOrUpdate(productDomain);
+    public String saveProduct(@RequestBody ProductDomain productDomain){
+       return productService.saveProduct(productDomain);
     }
 
     @GetMapping("/product/{productId}")

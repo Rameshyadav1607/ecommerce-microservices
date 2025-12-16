@@ -8,12 +8,11 @@ import java.time.LocalDateTime;
 @Getter
 public class ProductDomain {
 
-    private int productId;
-    private String categoryName;
-    private String brandName;
+    private Integer productId;
+    private Integer brandId;
     private String productName;
     private String description;
-    private Double price;
+    private Double unitPrice;
     private Integer quantity;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
