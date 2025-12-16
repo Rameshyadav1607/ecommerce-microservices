@@ -18,7 +18,6 @@ public class ColourService {
 
         if(colour == null){
             colour=new Colour();
-            colour.setColourName(colourName);
         }
         colour.setColourName(colourName);
         colourRepository.save(colour);
