@@ -18,5 +18,5 @@ public interface ParentCategoryRepository extends JpaRepository<ParentCategory, 
     List<String> getParentCategorys();
 
 
-
+    ParentCategory findByParentCategoryId(Integer parentCategoryId);
 }

@@ -71,7 +71,7 @@ public class ParentCategory implements java.io.Serializable {
         this.categoryName = categoryName;
     }
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name="created_date", length=13)
     public LocalDate getCreatedDate() {
         return this.createdDate;
@@ -81,7 +81,7 @@ public class ParentCategory implements java.io.Serializable {
         this.createdDate = createdDate;
     }
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name="updated_date", length=13)
     public LocalDate getUpdatedDate() {
         return this.updatedDate;
