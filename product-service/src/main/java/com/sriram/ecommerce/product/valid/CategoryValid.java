@@ -1,5 +1,6 @@
-package com.sriram.ecommerce.product.validators;
+package com.sriram.ecommerce.product.valid;
 
+import com.sriram.ecommerce.product.validators.CategoryValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

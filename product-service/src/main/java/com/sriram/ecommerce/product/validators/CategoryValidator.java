@@ -1,6 +1,7 @@
 package com.sriram.ecommerce.product.validators;
 
 import com.sriram.ecommerce.product.domain.CategoryDomain;
+import com.sriram.ecommerce.product.valid.CategoryValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

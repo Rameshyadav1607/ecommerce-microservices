@@ -1,6 +1,7 @@
 package com.sriram.ecommerce.product.validators;
 
 import com.sriram.ecommerce.product.domain.BrandDomain;
+import com.sriram.ecommerce.product.valid.BrandValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

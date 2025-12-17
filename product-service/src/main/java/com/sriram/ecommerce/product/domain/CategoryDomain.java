@@ -1,6 +1,6 @@
 package com.sriram.ecommerce.product.domain;
 
-import com.sriram.ecommerce.product.validators.CategoryValid;
+import com.sriram.ecommerce.product.valid.CategoryValid;
 import lombok.Getter;
 import lombok.Setter;
 
