@@ -32,31 +32,33 @@ public class Product implements java.io.Serializable {
      private Brand brand;
      private String productName;
      private String description;
-     private Double price;
-     private Integer quantiy;
+     private Double unitPrice;
+     private Integer quantity;
      private LocalDateTime createdDate;
      private LocalDateTime updateDate;
      private Set<ProductImage> productImages = new HashSet<ProductImage>(0);
      private Set<Inventory> inventories = new HashSet<Inventory>(0);
      private Set<Discount> discounts = new HashSet<Discount>(0);
+     private Set<Colour> colours=new HashSet<>(0);
+
 
     public Product() {
     }
 
 	
-    public Product(int productId, String productName, Double price, LocalDateTime createdDate) {
+    public Product(int productId, String productName, Double unitPrice, LocalDateTime createdDate) {
         this.productId = productId;
         this.productName = productName;
-        this.price = price;
+        this.unitPrice = unitPrice;
         this.createdDate = createdDate;
     }
-    public Product(int productId, Brand brand, String productName, String description, Double price, Integer quantiy, LocalDateTime createdDate, LocalDateTime updateDate, Set<ProductImage> productImages, Set<Inventory> inventories, Set<Discount> discounts) {
+    public Product(int productId, Brand brand, String productName, String description, Double unitPrice, Integer quantity, LocalDateTime createdDate, LocalDateTime updateDate, Set<ProductImage> productImages, Set<Inventory> inventories, Set<Discount> discounts) {
        this.productId = productId;
        this.brand = brand;
        this.productName = productName;
        this.description = description;
-       this.price = price;
-       this.quantiy = quantiy;
+       this.unitPrice = unitPrice;
+       this.quantity = quantity;
        this.createdDate = createdDate;
        this.updateDate = updateDate;
        this.productImages = productImages;
@@ -107,25 +109,22 @@ public class Product implements java.io.Serializable {
         this.description = description;
     }
 
-    
     @Column(name="price", nullable=false, precision=10, scale=0)
-    public Double getPrice() {
-        return this.price;
-    }
-    
-    public void setPrice(Double price) {
-        this.price = price;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
     @Column(name="quantity")
-    public Integer getQuantiy() {
-        return quantiy;
-    }
-    public void setQuantiy(Integer quantiy) {
-        this.quantiy = quantiy;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="created_date", nullable=false, length=29)
@@ -172,6 +171,14 @@ public class Product implements java.io.Serializable {
     
     public void setDiscounts(Set<Discount> discounts) {
         this.discounts = discounts;
+    }
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
+    public Set<Colour> getColours() {
+        return colours;
+    }
+
+    public void setColours(Set<Colour> colours) {
+        this.colours = colours;
     }
 
 
