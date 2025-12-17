@@ -16,9 +16,9 @@ public class ColourResource {
     @Autowired
     private ColourService colourService;
 
-    @PostMapping("/saveOrUpdate/{colourName}")
-    public String saveOrUpdateColour(@PathVariable String colourName){
-        return colourService.saveOrUpdateColour(colourName);
+    @PostMapping("/saveOrUpdate/{colourName}/{productId}")
+    public String saveOrUpdateColour(@PathVariable String colourName,@PathVariable Integer productId){
+        return colourService.saveOrUpdateColour(colourName,productId);
 
     }
     @GetMapping("/all")

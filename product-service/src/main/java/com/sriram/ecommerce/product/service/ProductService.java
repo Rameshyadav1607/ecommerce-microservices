@@ -1,5 +1,6 @@
 package com.sriram.ecommerce.product.service;
 
+import com.sriram.ecommerce.product.domain.ProductDetails;
 import com.sriram.ecommerce.product.domain.ProductDomain;
 import com.sriram.ecommerce.product.model.Brand;
 import com.sriram.ecommerce.product.model.Product;
@@ -9,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +37,8 @@ public class ProductService {
         product.setBrand(brand);
         product.setProductName(productDomain.getProductName());
         product.setDescription(productDomain.getDescription());
-        product.setPrice(productDomain.getUnitPrice());
-        product.setQuantiy(productDomain.getQuantity());
+        product.setUnitPrice(productDomain.getUnitPrice());
+        product.setQuantity(productDomain.getQuantity());
 
         productRepository.save(product);
 
@@ -44,42 +46,55 @@ public class ProductService {
 
     }
 
-    public ProductDomain getProductByProductId(Integer productId) {
-
-        Optional<Product> byId = productRepository.findById(productId);
-        if(byId.isPresent()){
-            Product    product=byId.get();
-            ProductDomain domain=new ProductDomain();
-            BeanUtils.copyProperties(product,domain);
-            return domain;
-        }
-       return  null;
-
+    public ProductDetails getProductByProductId(Integer productId) {
+            Product product = productRepository.findByProductId(productId);
+            ProductDetails productDetails=new ProductDetails();
+            BeanUtils.copyProperties(product,productDetails);
+            productDetails.setBrandId(product.getBrand().getBrandId());
+            return  productDetails;
     }
 
-    public List<ProductDomain> getAllProduct() {
+    public List<ProductDetails> getAllProduct() {
         List<Product> all = productRepository.findAll();
 
-        List<ProductDomain> productDomain = all.stream().map(product -> {
-                    ProductDomain domain = new ProductDomain();
+        List<ProductDetails> productDetails = all.stream().map(product -> {
+                    ProductDetails domain = new ProductDetails();
                     BeanUtils.copyProperties(product, domain);
+                    domain.setBrandId(product.getBrand().getBrandId());
             return domain;
                 }
 
         ).collect(Collectors.toList());
-        return productDomain;
+        return productDetails;
     }
 
-    public List<ProductDomain> getProductByName(String productName) {
+    public List<ProductDetails> getProductByName(String productName) {
        List<Product> allProducts= productRepository.findAllByProductName(productName.trim());
 
-        List<ProductDomain> productDomains = allProducts.stream().map(
+        List<ProductDetails> productDetailsList = allProducts.stream().map(
                 product -> {
-                    ProductDomain domain = new ProductDomain();
-                    BeanUtils.copyProperties(product, domain);
-                    return domain;
+                    ProductDetails productDetails = new ProductDetails();
+                    BeanUtils.copyProperties(product, productDetails);
+                    productDetails.setBrandId(product.getBrand().getBrandId());
+                    return productDetails;
                 }
         ).collect(Collectors.toList());
-        return productDomains;
+        return productDetailsList;
+    }
+
+    public void updateProduct(ProductDomain productDomain) {
+         Product    existProductt=productRepository.findByProductId(productDomain.getProductId());
+         Brand exitsBrand = brandRepository.findByBrandId(productDomain.getBrandId());
+
+        existProductt.setUpdateDate(LocalDateTime.now());
+        existProductt.setProductName(productDomain.getProductName());
+        existProductt.setDescription(productDomain.getDescription());
+        existProductt.setUnitPrice(productDomain.getUnitPrice());
+        existProductt.setQuantity(existProductt.getQuantity()+ productDomain.getQuantity());
+        existProductt.setBrand(exitsBrand);
+
+        productRepository.save(existProductt);
+
+
     }
 }

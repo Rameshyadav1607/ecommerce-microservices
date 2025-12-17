@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
 @Setter
 @Getter
-public class ProductDomain {
+public class ProductDetails {
 
     private Integer productId;
     private Integer brandId;
@@ -14,5 +15,8 @@ public class ProductDomain {
     private String description;
     private Double unitPrice;
     private Integer quantity;
-
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
+    private String colour;
+    private String status;
 }
