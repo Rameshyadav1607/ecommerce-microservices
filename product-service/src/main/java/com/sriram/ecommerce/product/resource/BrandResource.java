@@ -28,7 +28,6 @@ public class BrandResource {
 
     @DeleteMapping("/delete/{brandID}")
     public String deleteBrand(@PathVariable Integer brandID){
-
         return  brandService.deleteBrand(brandID);
     }
 

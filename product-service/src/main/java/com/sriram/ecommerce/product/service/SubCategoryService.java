@@ -5,8 +5,10 @@ import com.sriram.ecommerce.product.model.SubCategory;
 import com.sriram.ecommerce.product.repositoty.ParentCategoryRepository;
 import com.sriram.ecommerce.product.repositoty.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +22,10 @@ public class SubCategoryService {
 
     public ResponseEntity<String> createSubCategory(Integer parentCategoryId, String catogoryName) {
 
-        ParentCategory parentCategory = parentCategoryRepository.findByParentCategoryId(parentCategoryId);
+        ParentCategory parentCategory = parentCategoryRepository.findByParentCategoryId(parentCategoryId)
+                .orElseThrow( () ->
+                    new ResponseStatusException(HttpStatus.NOT_FOUND,"parent category not found :" + parentCategoryId)
+                );
 
         SubCategory subcategory = subCategoryRepository.findByCategoryName(catogoryName);
         if(subcategory == null){

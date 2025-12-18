@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ParentCategoryRepository extends JpaRepository<ParentCategory, Integer> {
 
@@ -17,6 +18,5 @@ public interface ParentCategoryRepository extends JpaRepository<ParentCategory, 
     @Query("SELECT pt.categoryName from ParentCategory pt")
     List<String> getParentCategorys();
 
-
-    ParentCategory findByParentCategoryId(Integer parentCategoryId);
+    Optional<ParentCategory> findByParentCategoryId(Integer parentCategoryId);
 }
