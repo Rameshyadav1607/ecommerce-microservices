@@ -1,6 +1,6 @@
 package com.sriram.ecommerce.product.resource;
 
-import com.sriram.ecommerce.product.service.ColourService;
+import com.sriram.ecommerce.product.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,18 +12,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/colour")
-public class ColourResource {
+public class ColorResource {
     @Autowired
-    private ColourService colourService;
+    private ColorService colorService;
 
-    @PostMapping("/saveOrUpdate/{colourName}/{productId}")
-    public String saveOrUpdateColour(@PathVariable String colourName,@PathVariable Integer productId){
-        return colourService.saveOrUpdateColour(colourName,productId);
+    @PostMapping("/saveOrUpdate/{colorName}/{productId}")
+    public String saveOrUpdateColour(@PathVariable String colorName,@PathVariable Integer productId){
+        return colorService.saveOrUpdateColor(colorName,productId);
 
     }
     @GetMapping("/all")
     public List<String> getColourNames(){
-       return colourService.getColourNames();
+       return colorService.getColorNames();
     }
 
 }

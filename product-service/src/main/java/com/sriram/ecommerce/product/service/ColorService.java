@@ -1,6 +1,6 @@
 package com.sriram.ecommerce.product.service;
 
-import com.sriram.ecommerce.product.model.Colour;
+import com.sriram.ecommerce.product.model.Color;
 import com.sriram.ecommerce.product.model.Product;
 import com.sriram.ecommerce.product.repositoty.ColourRepository;
 import com.sriram.ecommerce.product.repositoty.ProductRepository;
@@ -10,28 +10,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ColourService {
+public class ColorService {
     @Autowired
     private ColourRepository colourRepository;
     @Autowired
     private ProductRepository productRepository;
 
-    public String saveOrUpdateColour(String colourName,Integer productId) {
+    public String saveOrUpdateColor(String colorName,Integer productId) {
 
-        Colour colour=colourRepository.findByColourName(colourName);
+        Color color =colourRepository.findByColorName(colorName);
         Product product = productRepository.findByProductId(productId);
 
-        if(colour == null){
-            colour=new Colour();
+        if(color == null){
+            color =new Color();
         }
-        colour.setColourName(colourName);
-        colour.setProduct(product);
-        colourRepository.save(colour);
+        color.setColorName(colorName);
+        color.setProduct(product);
+        colourRepository.save(color);
         return "colour is saved or updated";
     }
 
-    public List<String> getColourNames() {
-          List<String>  colours=colourRepository.findByColourNames();
-        return colours;
+    public List<String> getColorNames() {
+          List<String>  colors=colourRepository.findByColorNames();
+        return colors;
     }
 }

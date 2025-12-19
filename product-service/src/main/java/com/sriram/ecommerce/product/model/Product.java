@@ -36,36 +36,11 @@ public class Product implements java.io.Serializable {
      private Integer quantity;
      private LocalDateTime createdDate;
      private LocalDateTime updateDate;
-     private Set<ProductImage> productImages = new HashSet<ProductImage>(0);
      private Set<Inventory> inventories = new HashSet<Inventory>(0);
      private Set<Discount> discounts = new HashSet<Discount>(0);
-     private Set<Colour> colours=new HashSet<>(0);
+     private Set<Color> colors=new HashSet<>(0);
 
 
-    public Product() {
-    }
-
-	
-    public Product(int productId, String productName, Double unitPrice, LocalDateTime createdDate) {
-        this.productId = productId;
-        this.productName = productName;
-        this.unitPrice = unitPrice;
-        this.createdDate = createdDate;
-    }
-    public Product(int productId, Brand brand, String productName, String description, Double unitPrice, Integer quantity, LocalDateTime createdDate, LocalDateTime updateDate, Set<ProductImage> productImages, Set<Inventory> inventories, Set<Discount> discounts) {
-       this.productId = productId;
-       this.brand = brand;
-       this.productName = productName;
-       this.description = description;
-       this.unitPrice = unitPrice;
-       this.quantity = quantity;
-       this.createdDate = createdDate;
-       this.updateDate = updateDate;
-       this.productImages = productImages;
-       this.inventories = inventories;
-       this.discounts = discounts;
-    }
-   
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="product_id", unique=true, nullable=false)
@@ -146,14 +121,6 @@ public class Product implements java.io.Serializable {
         this.updateDate = upLocalDateTimeLocalDateTime;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="product")
-    public Set<ProductImage> getProductImages() {
-        return this.productImages;
-    }
-    
-    public void setProductImages(Set<ProductImage> productImages) {
-        this.productImages = productImages;
-    }
 
    @OneToMany(fetch=FetchType.LAZY, mappedBy="product")
     public Set<Inventory> getInventories() {
@@ -173,12 +140,12 @@ public class Product implements java.io.Serializable {
         this.discounts = discounts;
     }
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
-    public Set<Colour> getColours() {
-        return colours;
+    public Set<Color> getColours() {
+        return colors;
     }
 
-    public void setColours(Set<Colour> colours) {
-        this.colours = colours;
+    public void setColours(Set<Color> colors) {
+        this.colors = colors;
     }
 
 
