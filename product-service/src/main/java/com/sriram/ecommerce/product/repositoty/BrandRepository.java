@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand,Integer> {
@@ -14,5 +15,5 @@ public interface BrandRepository extends JpaRepository<Brand,Integer> {
     @Query("select b.brandName from Brand b")
     List<String> findAllBrandNames();
 
-    Brand findByBrandId(Integer brandId);
+    Optional<Brand> findByBrandId(Integer brandId);
 }

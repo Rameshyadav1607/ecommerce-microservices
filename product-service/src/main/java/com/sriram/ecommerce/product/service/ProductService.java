@@ -8,7 +8,9 @@ import com.sriram.ecommerce.product.repositoty.BrandRepository;
 import com.sriram.ecommerce.product.repositoty.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +29,8 @@ public class ProductService {
     public String saveProduct(ProductDomain productDomain) {
         Product existingProduct = productRepository.findByProductName(productDomain.getProductName());
 
-        Brand brand=brandRepository.findByBrandId(productDomain.getBrandId());
+        Brand brand=brandRepository.findByBrandId(productDomain.getBrandId())
+                .orElseThrow( ()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Brand id not found :" +productDomain.getBrandId()));
 
         if(existingProduct !=null){
           return "Product Already exits";
@@ -84,7 +87,8 @@ public class ProductService {
 
     public void updateProduct(ProductDomain productDomain) {
          Product    existProductt=productRepository.findByProductId(productDomain.getProductId());
-         Brand exitsBrand = brandRepository.findByBrandId(productDomain.getBrandId());
+         Brand exitsBrand = brandRepository.findByBrandId(productDomain.getBrandId())
+                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"brandId not found :" +productDomain.getBrandId()));
 
         existProductt.setUpdateDate(LocalDateTime.now());
         existProductt.setProductName(productDomain.getProductName());

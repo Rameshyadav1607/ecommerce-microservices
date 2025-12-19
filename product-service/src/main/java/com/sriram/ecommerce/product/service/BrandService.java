@@ -7,7 +7,9 @@ import com.sriram.ecommerce.product.repositoty.BrandRepository;
 import com.sriram.ecommerce.product.repositoty.SubCategoryRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +27,9 @@ public class BrandService {
     public void saveOrUpdateBrand(String brandName,String brandDescription,Integer subCategoryId) {
 
         Brand brand= brandRepository.findByBrandName(brandName);
-        SubCategory subCategory = subCategoryRepository.findBySubCategoryId(subCategoryId);
+        SubCategory subCategory = subCategoryRepository.findBySubCategoryId(subCategoryId)
+                .orElseThrow( () ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,"subCategory Not found :" + subCategoryId));
 
         if (brand != null) {
             brand.setupdatedDate(LocalDateTime.now());
