@@ -5,6 +5,8 @@ package com.sriram.ecommerce.product.model;// default package
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -31,12 +33,13 @@ public class ProductVariant implements java.io.Serializable {
     private int variantId;
     private Color color;
     private Product product;
-    private BigDecimal price;
+    private BigDecimal  price;
     private Integer stock;
     private List<ProductImage> productImages ;
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "variant_id", unique = true, nullable = false)
     public int getVariantId() {
         return this.variantId;
@@ -68,11 +71,11 @@ public class ProductVariant implements java.io.Serializable {
 
 
     @Column(name = "price", precision = 10, scale = 2)
-    public BigDecimal getPrice() {
+    public BigDecimal  getPrice() {
         return this.price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal  price) {
         this.price = price;
     }
 

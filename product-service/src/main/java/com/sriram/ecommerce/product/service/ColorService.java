@@ -2,7 +2,7 @@ package com.sriram.ecommerce.product.service;
 
 import com.sriram.ecommerce.product.model.Color;
 import com.sriram.ecommerce.product.model.Product;
-import com.sriram.ecommerce.product.repositoty.ColourRepository;
+import com.sriram.ecommerce.product.repositoty.ColorRepository;
 import com.sriram.ecommerce.product.repositoty.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import java.util.List;
 @Service
 public class ColorService {
     @Autowired
-    private ColourRepository colourRepository;
+    private ColorRepository colorRepository;
     @Autowired
     private ProductRepository productRepository;
 
     public String saveOrUpdateColor(String colorName,Integer productId) {
 
-        Color color =colourRepository.findByColorName(colorName);
+        Color color = colorRepository.findByColorName(colorName);
         Product product = productRepository.findByProductId(productId);
 
         if(color == null){
@@ -26,12 +26,12 @@ public class ColorService {
         }
         color.setColorName(colorName);
         color.setProduct(product);
-        colourRepository.save(color);
+        colorRepository.save(color);
         return "colour is saved or updated";
     }
 
     public List<String> getColorNames() {
-          List<String>  colors=colourRepository.findByColorNames();
+          List<String>  colors= colorRepository.findByColorNames();
         return colors;
     }
 }

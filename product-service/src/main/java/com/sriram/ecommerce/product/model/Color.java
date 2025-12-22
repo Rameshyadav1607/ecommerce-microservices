@@ -22,23 +22,20 @@ import jakarta.persistence.Table;
 public class Color implements java.io.Serializable {
 
 
-     private int colourId;
+     private int colorId;
      private String colorName;
      private String colorCode;
      private Product product;
 
-
-
-   
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="color_id", unique=true, nullable=false)
     public int getColorId() {
-        return this.colourId;
+        return this.colorId;
     }
     
     public void setColorId(int colourId) {
-        this.colourId = colourId;
+        this.colorId = colourId;
     }
 
     

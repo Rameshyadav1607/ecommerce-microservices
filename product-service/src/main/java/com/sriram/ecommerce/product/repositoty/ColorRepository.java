@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ColourRepository extends JpaRepository<Color, Integer> {
+public interface ColorRepository extends JpaRepository<Color, Integer> {
     Color findByColorName(String colorName);
     @Query("select c.colorName from Color c")
     List<String> findByColorNames();
+
+    Color findByColorId(Integer colourId);
 }
