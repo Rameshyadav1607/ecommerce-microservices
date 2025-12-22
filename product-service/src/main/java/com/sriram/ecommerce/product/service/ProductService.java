@@ -11,11 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,8 +37,6 @@ public class ProductService {
         product.setBrand(brand);
         product.setProductName(productDomain.getProductName());
         product.setDescription(productDomain.getDescription());
-        product.setUnitPrice(productDomain.getUnitPrice());
-        product.setQuantity(productDomain.getQuantity());
 
         productRepository.save(product);
 
@@ -49,19 +44,16 @@ public class ProductService {
 
     }
 
-    public ProductDetails getProductByProductId(Integer productId) {
-            Product product = productRepository.findByProductId(productId);
-            ProductDetails productDetails=new ProductDetails();
-            BeanUtils.copyProperties(product,productDetails);
-            productDetails.setBrandId(product.getBrand().getBrandId());
+    public List<ProductDetails> getProductByProductId(Integer productId) {
+        List<ProductDetails> productDetails = productRepository.fetchAllProductDetails(productId);
             return  productDetails;
     }
 
-    public List<ProductDetails> getAllProduct() {
+    public List<ProductDomain> getAllProduct() {
         List<Product> all = productRepository.findAll();
 
-        List<ProductDetails> productDetails = all.stream().map(product -> {
-                    ProductDetails domain = new ProductDetails();
+        List<ProductDomain> productDetails = all.stream().map(product -> {
+                    ProductDomain domain = new ProductDomain();
                     BeanUtils.copyProperties(product, domain);
                     domain.setBrandId(product.getBrand().getBrandId());
             return domain;
@@ -71,15 +63,15 @@ public class ProductService {
         return productDetails;
     }
 
-    public List<ProductDetails> getProductByName(String productName) {
+    public List<ProductDomain> getProductByName(String productName) {
        List<Product> allProducts= productRepository.findAllByProductName(productName.trim());
 
-        List<ProductDetails> productDetailsList = allProducts.stream().map(
+        List<ProductDomain> productDetailsList = allProducts.stream().map(
                 product -> {
-                    ProductDetails productDetails = new ProductDetails();
-                    BeanUtils.copyProperties(product, productDetails);
-                    productDetails.setBrandId(product.getBrand().getBrandId());
-                    return productDetails;
+                    ProductDomain productDomain = new ProductDomain();
+                    BeanUtils.copyProperties(product, productDomain);
+                    productDomain.setBrandId(product.getBrand().getBrandId());
+                    return productDomain;
                 }
         ).collect(Collectors.toList());
         return productDetailsList;
@@ -93,8 +85,6 @@ public class ProductService {
         existProductt.setUpdateDate(LocalDateTime.now());
         existProductt.setProductName(productDomain.getProductName());
         existProductt.setDescription(productDomain.getDescription());
-        existProductt.setUnitPrice(productDomain.getUnitPrice());
-        existProductt.setQuantity(existProductt.getQuantity()+ productDomain.getQuantity());
         existProductt.setBrand(exitsBrand);
 
         productRepository.save(existProductt);

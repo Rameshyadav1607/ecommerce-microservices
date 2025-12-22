@@ -12,7 +12,6 @@ public class ProductDomain {
     private Integer brandId;
     private String productName;
     private String description;
-    private Double unitPrice;
-    private Integer quantity;
+
 
 }

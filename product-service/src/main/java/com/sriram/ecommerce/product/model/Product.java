@@ -32,8 +32,6 @@ public class Product implements java.io.Serializable {
      private Brand brand;
      private String productName;
      private String description;
-     private Double unitPrice;
-     private Integer quantity;
      private LocalDateTime createdDate;
      private LocalDateTime updateDate;
      private Set<Inventory> inventories = new HashSet<Inventory>(0);
@@ -82,23 +80,6 @@ public class Product implements java.io.Serializable {
     
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Column(name="price", nullable=false, precision=10, scale=0)
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-    @Column(name="quantity")
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

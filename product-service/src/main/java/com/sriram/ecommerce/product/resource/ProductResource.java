@@ -28,17 +28,17 @@ public class ProductResource  {
          productService.updateProduct(productDomain);
     }
 
-    @GetMapping("/product/{productId}")
-    public ProductDetails getProductByProductId(@PathVariable Integer productId){
+    @GetMapping("/{productId}")
+    public List<ProductDetails> getProductByProductId(@PathVariable Integer productId){
        return productService.getProductByProductId(productId);
     }
 
-    @GetMapping("/all/product")
-    public List<ProductDetails> getAllProduct(){
+    @GetMapping("/all")
+    public List<ProductDomain> getAllProduct(){
         return  productService.getAllProduct();
     }
-    @GetMapping("/{productName}")
-    public List<ProductDetails> getProductByName(@PathVariable String productName){
+    @GetMapping("/productname/{productName}")
+    public List<ProductDomain> getProductByName(@PathVariable String productName){
         return  productService.getProductByName(productName);
     }
 }
