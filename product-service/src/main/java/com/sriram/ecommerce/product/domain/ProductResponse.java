@@ -5,25 +5,26 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class ProductDetails {
+public class ProductResponse {
     private Integer productId;
-    private Integer brandId;
     private String productName;
+    private Integer brandId;
     private String brandName;
-    private String colorName;
     private Integer variantId;
+    private String colorName;
     private BigDecimal price;
     private Integer stock;
+    private Integer imageId;
     private String imageUrl;
 
-    public ProductDetails(Integer productId, String productName, String brandName, String colorName, Integer variantId, BigDecimal price, Integer stock, String imageUrl) {
+    public ProductResponse(Integer productId, String productName,Integer brandId,String brandName, String colorName, Integer variantId, BigDecimal price, Integer stock, String imageUrl) {
         this.productId = productId;
         this.productName = productName;
+        this.brandId=brandId;
         this.brandName = brandName;
         this.colorName = colorName;
         this.variantId = variantId;

@@ -1,7 +1,8 @@
 package com.sriram.ecommerce.product.resource;
 
-import com.sriram.ecommerce.product.domain.ProductDetails;
+import com.sriram.ecommerce.product.domain.ProductResponse;
 import com.sriram.ecommerce.product.domain.ProductDomain;
+import com.sriram.ecommerce.product.domain.ProductsDetails;
 import com.sriram.ecommerce.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +30,12 @@ public class ProductResource  {
     }
 
     @GetMapping("/{productId}")
-    public List<ProductDetails> getProductByProductId(@PathVariable Integer productId){
+    public List<ProductsDetails> getProductByProductId(@PathVariable Integer productId){
        return productService.getProductByProductId(productId);
     }
 
     @GetMapping("/all")
-    public List<ProductDomain> getAllProduct(){
+    public List<ProductsDetails> getAllProduct(){
         return  productService.getAllProduct();
     }
     @GetMapping("/productname/{productName}")

@@ -32,6 +32,4 @@ public class ProductImageResource {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productImageService.uploadImage(file, variantId, isPrimary));
     }
-
-
 }
