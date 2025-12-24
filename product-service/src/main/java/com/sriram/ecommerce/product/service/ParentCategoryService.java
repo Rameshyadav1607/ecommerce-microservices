@@ -1,5 +1,6 @@
 package com.sriram.ecommerce.product.service;
 
+import com.sriram.ecommerce.product.domain.ParentCategoryResponse;
 import com.sriram.ecommerce.product.model.ParentCategory;
 import com.sriram.ecommerce.product.repositoty.ParentCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,12 @@ public class ParentCategoryService {
 
        return  ResponseEntity.status(HttpStatus.OK).build();
 
+    }
+
+    public List<ParentCategoryResponse> getParentAndSubCategory() {
+
+           List<ParentCategoryResponse>    parentCategoryResponse=parentCategoryRepository.fetchParentWithSubCatorys();
+
+        return parentCategoryResponse;
     }
 }

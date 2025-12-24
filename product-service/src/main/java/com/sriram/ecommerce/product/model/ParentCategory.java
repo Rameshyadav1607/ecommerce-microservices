@@ -2,16 +2,22 @@ package com.sriram.ecommerce.product.model;// default package
 // Generated 10-Dec-2025, 4:01:25 pm by Hibernate Tools 6.2.24.Final
 
 
+import com.sriram.ecommerce.product.domain.ParentSubCategoryDomain;
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,6 +30,31 @@ import java.util.Set;
 @Entity
 @Table(name="parent_category"
     ,schema="public"
+)
+@NamedNativeQuery(
+        name = "ParentCategory.fetchParentWithSubCategories",
+        query =("""
+                select p.parent_category_id as parentCateoryId,
+                p.category_name as parentCategoryName,
+                sc.sub_category_id as parentCategoryName ,
+                sc.category_name as parentCategoryName
+                from parent_category p
+                 join sub_category sc
+                on  p.parent_category_id=sc.parent_category_id
+                """),
+          resultSetMapping = "ParentSubCategoryMapping"
+)
+@SqlResultSetMapping(
+        name = "ParentSubCategoryMapping",
+        classes = @ConstructorResult(
+                targetClass = ParentSubCategoryDomain.class,
+                columns = {
+                        @ColumnResult(name = "parentCategoryId", type = Integer.class),
+                        @ColumnResult(name = "parentCategoryName", type = String.class),
+                        @ColumnResult(name = "subCategoryId", type = Integer.class),
+                        @ColumnResult(name = "subCategoryName", type = String.class)
+                }
+        )
 )
 public class ParentCategory implements java.io.Serializable {
 

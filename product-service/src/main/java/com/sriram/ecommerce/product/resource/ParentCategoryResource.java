@@ -1,5 +1,6 @@
 package com.sriram.ecommerce.product.resource;
 
+import com.sriram.ecommerce.product.domain.ParentCategoryResponse;
 import com.sriram.ecommerce.product.service.ParentCategoryService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,6 +39,10 @@ public class ParentCategoryResource {
     public ResponseEntity<Void> deleteCategory(@PathVariable @NotNull(message = "categoryid is required") Integer catageryId){
         return  parentCategoryService.deleteCategory(catageryId);
 
+    }
+    @GetMapping("/parent-sub-categorys")
+    public List<ParentCategoryResponse> getParentAndSubCategory(){
+       return parentCategoryService.getParentAndSubCategory();
     }
 
 }
