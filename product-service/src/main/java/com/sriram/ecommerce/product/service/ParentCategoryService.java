@@ -1,15 +1,21 @@
 package com.sriram.ecommerce.product.service;
 
 import com.sriram.ecommerce.product.domain.ParentCategoryResponse;
+import com.sriram.ecommerce.product.domain.ParentSubCategoryDomain;
+import com.sriram.ecommerce.product.domain.SubCategoryResponse;
 import com.sriram.ecommerce.product.model.ParentCategory;
 import com.sriram.ecommerce.product.repositoty.ParentCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.AbstractPersistable_;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ParentCategoryService {
@@ -49,8 +55,19 @@ public class ParentCategoryService {
 
     public List<ParentCategoryResponse> getParentAndSubCategory() {
 
-           List<ParentCategoryResponse>    parentCategoryResponse=parentCategoryRepository.fetchParentWithSubCatorys();
+           List<ParentSubCategoryDomain>    parentSubCategoryDomain=parentCategoryRepository.fetchParentWithSubCatorys();
+        Map<Integer, ParentCategoryResponse> map = new HashMap<>();
+        for (ParentSubCategoryDomain row :parentSubCategoryDomain){
+            ParentCategoryResponse parentCategoryResponse = map.computeIfAbsent(row.getParentCateoryId(), id ->
+                    new ParentCategoryResponse(
+                            row.getParentCateoryId(),
+                            row.getParentCategoryName(),
+                            new ArrayList<>()
+                    )
+            );
+            parentCategoryResponse.getSubCategoryResponseList().add(new SubCategoryResponse(row.getSubCategoryId(), row.getSubCategoryName()));
+        }
 
-        return parentCategoryResponse;
+        return new ArrayList<>(map.values());
     }
 }

@@ -1,6 +1,7 @@
 package com.sriram.ecommerce.product.repositoty;
 
 import com.sriram.ecommerce.product.domain.ParentCategoryResponse;
+import com.sriram.ecommerce.product.domain.ParentSubCategoryDomain;
 import com.sriram.ecommerce.product.model.ParentCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,6 +21,7 @@ public interface ParentCategoryRepository extends JpaRepository<ParentCategory, 
     List<String> getParentCategorys();
 
     Optional<ParentCategory> findByParentCategoryId(Integer parentCategoryId);
+
      @Query(name = "ParentCategory.fetchParentWithSubCategories",nativeQuery = true)
-    List<ParentCategoryResponse> fetchParentWithSubCatorys();
+    List<ParentSubCategoryDomain> fetchParentWithSubCatorys();
 }

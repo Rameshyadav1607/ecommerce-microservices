@@ -34,10 +34,10 @@ import java.util.Set;
 @NamedNativeQuery(
         name = "ParentCategory.fetchParentWithSubCategories",
         query =("""
-                select p.parent_category_id as parentCateoryId,
+                select p.parent_category_id as parentCategoryId,
                 p.category_name as parentCategoryName,
-                sc.sub_category_id as parentCategoryName ,
-                sc.category_name as parentCategoryName
+                sc.sub_category_id as subCategoryId ,
+                sc.category_name as subCategoryName
                 from parent_category p
                  join sub_category sc
                 on  p.parent_category_id=sc.parent_category_id
